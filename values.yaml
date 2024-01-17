@@ -5,20 +5,20 @@ renderModules: false
 
 environments:
   cluster1:
-    k8sapi: pepe.com 
+    k8sapi: 'https://api.acidonpe92.sandbox1915.opentlc.com:6443'
     modules:
       auth:
-        repo: https://github.com/autstudent/module-auth.git
-        path: .
-        ns: authentication
+        repo: 'https://github.com/autstudent/module-auth.git'
+        path: '.'
+        ns: 'authentication'
       monitoring:
-        repo: https://github.com/autstudent/module-monitoring.git
-        path: .
-        ns: monitoring
+        repo: 'https://github.com/autstudent/module-monitoring.git'
+        path: '.'
+        ns: 'monitoring'
   cluster2:
-    k8sapi: pepe.com
+    k8sapi: 'https://api.acidonpe93.sandbox1915.opentlc.com:6443'
     modules:
       monitoring:
-        repo: https://github.com/autstudent/module-monitoring.git
-        path: .
-        ns: monitoring
+        repo: 'https://github.com/autstudent/module-monitoring.git'
+        path: '.'
+        ns: 'monitoring'
