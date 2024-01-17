@@ -1,0 +1,50 @@
+{{- range $key, $val := $.Values.environments }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $key }}
+spec:
+  destination:
+    name: ''
+    namespace: openshift-gitops
+    server: {{ $val.k8sapi }}
+  source:
+    path: .
+    repoURL: 'https://github.com/autstudent/module-onboarding.git'
+
+{{- range $key2, $val2 := $val.modules }}
+{{- if $.Values.renderModules }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: '{{ $key }}-{{ $key2 }}'
+spec:
+  destination:
+    name: ''
+    namespace: '{{ $val2.ns }}'
+    server: '{{ $val.k8sapi }}'
+  source:
+    path: '{{ $val2.path }}'
+    repoURL: '{{ $val2.repo }}'
+{{- else }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: '{{ $key }}-{{ $key2 }}'
+spec:
+  destination:
+    name: ''
+    namespace: openshift-gitops
+    server: 'https://kubernetes.default.svc'
+  source:
+    helm:
+      values: |
+        renderModules: true  
+    path: .
+    repoURL: '{{ $.Values.appsOfAppsRepo }}'
+{{- end }}
+{{- end }}
+{{- end }}

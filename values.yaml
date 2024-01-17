@@ -1,0 +1,24 @@
+
+appsOfAppsRepo: https://github.com/autstudent/app-of-apps.git
+
+renderModules: false
+
+environments:
+  cluster1:
+    k8sapi: pepe.com 
+    modules:
+      auth:
+        repo: https://github.com/autstudent/module-auth.git
+        path: .
+        ns: authentication
+      monitoring:
+        repo: https://github.com/autstudent/module-monitoring.git
+        path: .
+        ns: monitoring
+  cluster2:
+    k8sapi: pepe.com
+    modules:
+      monitoring:
+        repo: https://github.com/autstudent/module-monitoring.git
+        path: .
+        ns: monitoring
