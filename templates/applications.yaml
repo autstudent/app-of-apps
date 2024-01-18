@@ -39,6 +39,7 @@ spec:
         targetRevision: HEAD
         path: '{{"{{path}}"}}'
       destination:
+        name: ''
         server: '{{"{{cluster}}"}}'
         namespace: '{{"{{ns}}"}}'
 {{- end }}
