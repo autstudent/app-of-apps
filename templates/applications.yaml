@@ -13,41 +13,32 @@ spec:
   source:
     path: .
     repoURL: 'https://github.com/autstudent/module-onboarding.git'
-
-{{- range $key2, $val2 := $val.modules }}
-{{- if $.Values.renderModules }}
 ---
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
-  name: '{{ $key }}-{{ $key2 }}-app-of-apps'
+  name: {{ $key }}-modules
 spec:
-  project: default
-  destination:
-    name: ''
-    namespace: '{{ $val2.ns }}'
-    server: '{{ $val.k8sapi }}'
-  source:
-    path: '{{ $val2.path }}'
-    repoURL: '{{ $val2.repo }}'
-{{- else }}
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: '{{ $key }}-{{ $key2 }}'
-spec:
-  project: default
-  destination:
-    name: ''
-    namespace: openshift-gitops
-    server: 'https://kubernetes.default.svc'
-  source:
-    helm:
-      values: |
-        renderModules: true  
-    path: .
-    repoURL: '{{ $.Values.appsOfAppsRepo }}'
-{{- end }}
-{{- end }}
+  generators:
+  - list:
+      elements:
+      {{- range $keymod, $valmod := $val.modules }}
+        - cluster: {{ $val.k8sapi }}
+          ns: {{ $valmod.ns }}
+          name: {{ $valmod.name }}
+          repo: {{ $valmod.repo }}
+          path: {{ $valmod.path }}
+      {{- end }}
+  template:
+    metadata:
+      name: '{{ $key }}-{{"{{name}}"}}'
+    spec:
+      project: default
+      source:
+        repoURL: '{{"{{repo}}"}}'
+        targetRevision: HEAD
+        path: '{{"{{path}}"}}'
+      destination:
+        server: '{{"{{cluster}}"}}'
+        namespace: '{{"{{ns}}"}}'
 {{- end }}

@@ -7,18 +7,18 @@ environments:
   cluster1:
     k8sapi: 'https://api.acidonpe92.sandbox1915.opentlc.com:6443'
     modules:
-      auth:
+      - name: auth
         repo: 'https://github.com/autstudent/module-auth.git'
         path: '.'
         ns: 'authentication'
-      monitoring:
+      - name: monitoring
         repo: 'https://github.com/autstudent/module-monitoring.git'
         path: '.'
         ns: 'monitoring'
   cluster2:
     k8sapi: 'https://api.acidonpe93.sandbox1915.opentlc.com:6443'
     modules:
-      monitoring:
+      - name: monitoring
         repo: 'https://github.com/autstudent/module-monitoring.git'
         path: '.'
         ns: 'monitoring'
