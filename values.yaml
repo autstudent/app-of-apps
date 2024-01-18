@@ -5,7 +5,7 @@ renderModules: false
 
 environments:
   cluster1:
-    k8sapi: 'https://api.acidonpe92.sandbox1915.opentlc.com:6443'
+    k8sapi: 'https://api.acidonpe94.sandbox2247.opentlc.com:6443'
     modules:
       - name: auth
         repo: 'https://github.com/autstudent/module-auth.git'
