@@ -3,7 +3,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $key }}
+  name: {{ $key }}-onboarding
 spec:
   project: default
   destination:
@@ -20,7 +20,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: '{{ $key }}-{{ $key2 }}'
+  name: '{{ $key }}-{{ $key2 }}-app-of-apps'
 spec:
   project: default
   destination:
